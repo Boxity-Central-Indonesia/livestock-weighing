@@ -18,8 +18,8 @@ export const Navbar = () => {
                                         d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                                         clipRule="evenodd"></path>
                                 </svg>
-                                <svg aria-hidden="true" className="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" className="hidden w-6 h-6" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd"
                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                         clipRule="evenodd"></path>
@@ -27,11 +27,20 @@ export const Navbar = () => {
                                 <span className="sr-only">Toggle sidebar</span>
                             </button>
                             <a href="#" className="flex items-center justify-between mr-4">
-                                <img src="https://res.cloudinary.com/boxity-id/image/upload/v1711961477/asset_boxity/osyduuddeg38pejss0x0.png" className="mr-3 h-12"
-                                    alt="Logo Boxity" />
+                                <img src="https://res.cloudinary.com/boxity-id/image/upload/v1711961477/asset_boxity/osyduuddeg38pejss0x0.png"
+                                    className="mr-3 h-12" alt="Logo Boxity" />
                             </a>
                         </div>
                         <div className="flex items-center lg:order-2">
+                            <div className="p-2 hover:bg-gray-50 rounded-md">
+                                <svg className="w-6 h-6 text-gray-700 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5" />
+                                </svg>
+                            </div>
+
                             <button type="button"
                                 className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
@@ -40,7 +49,7 @@ export const Navbar = () => {
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
                                     alt="user photo" />
                             </button>
-                          
+
                         </div>
                     </div>
                 </nav>

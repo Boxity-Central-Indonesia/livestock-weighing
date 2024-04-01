@@ -105,7 +105,7 @@ export const ModalComponents = ({
                  <Modal.Header>Timbangan</Modal.Header>
                  <Modal.Body>
                      <div>
-                        <p className="text-3xl font-medium mb-5">{dataBody.details.qty_weighing} kg</p>
+                        <p className="text-4xl font-medium mb-5">{dataBody.details.qty_weighing} kg</p>
                         <div className=" grid grid-cols-2 gap-5">
                             <div className="flex flex-col gap-3 col-span-2">
                                 <label htmlFor="">Kode order</label>
@@ -135,7 +135,7 @@ export const ModalComponents = ({
                      </div>
                  </Modal.Body>
                  <Modal.Footer>
-                     <Button onClick={handleCreate}>Save</Button>
+                     <Button style={{backgroundColor: `#f95b12`}} onClick={handleCreate}>Save</Button>
                      <Button color="gray" onClick={()=> setOpenModal(false)}>
                          Batal
                      </Button>
