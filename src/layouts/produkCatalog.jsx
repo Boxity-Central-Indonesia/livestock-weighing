@@ -28,7 +28,7 @@ export const ProductCatalog = ({ refresh, setRefresh }) => {
         refresh={refresh}
         setRefresh={setRefresh}
       />
-      <h3 className="text-md font-medium font-bold">
+      <h3 className="text-md font-medium font-bold mt-4">
         Pilih kategori barang yang ingin ditimbang
       </h3>
       <hr className="mt-3 mb-2" />
