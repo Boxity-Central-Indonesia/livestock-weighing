@@ -12,7 +12,9 @@ export const TableComponents = ({ refresh }) => {
       minute: "numeric",
       hour12: true,
     };
-    return new Date(dateString).toLocaleDateString("id-ID", options);
+    return new Date(dateString)
+      .toLocaleDateString("id-ID", options)
+      .replace(",", "");
   };
 
   const [groupedData, setGroupedData] = useState([]);
@@ -95,7 +97,11 @@ export const TableComponents = ({ refresh }) => {
         <Table.Body className="divide-y divide-x">
           {Object.entries(groupedData).map(([kodeOrder, group], index) => (
             <React.Fragment key={index}>
-              <Table.Row key={index} className="bg-gray-300 font-medium">
+              <Table.Row
+                key={index}
+                className="bg-gray-300 font-medium"
+                style={{ backgroundColor: "#f3f4f6" }}
+              >
                 <Table.Cell className="table-cell" colSpan={columns.length}>
                   Kode Order: {kodeOrder}
                 </Table.Cell>
