@@ -12,14 +12,16 @@ function App() {
     <>
       <Navbar />
       <div className="pt-5">
-        <div className="pt-16 px-5">
+        <div className="pt-16 px-5 pb-10">
           {/* untuk produk catalog */}
-          <div className="w-[60%] pr-5">
-            <ProductCatalog refresh={refresh} setRefresh={setRefresh} />
+          <div className="border h-screen p-5 absolute left-0 top-0 w-[60%] overflow-hidden overflow-y-auto">
+            <div className=" pb-16">
+              <ProductCatalog refresh={refresh} setRefresh={setRefresh} />
+            </div>
           </div>
           {/* unutuk list data */}
-          <div className="bg-white h-full p-5 absolute right-0 top-0 w-[40%]">
-            <div className="mt-16">
+          <div className="bg-white border h-screen p-5 absolute right-0 top-0 w-[40%] overflow-hidden overflow-scroll">
+            <div className="pt-16 pb-10">
               <ListProduk refresh={refresh} />
             </div>
           </div>
