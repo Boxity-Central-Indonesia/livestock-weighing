@@ -1,9 +1,11 @@
+// listProduk.jsx
+
 import { TableComponents } from "./Tabel";
 
 export const ListProduk = ({ refresh }) => {
   return (
     <>
-      <div>
+      <div className="p-4">
         <h3 className="text-md font-medium font-bold text-uppercase">
           List data livestock weighing
         </h3>

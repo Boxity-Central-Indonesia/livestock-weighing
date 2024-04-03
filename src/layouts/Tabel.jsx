@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { Table } from "flowbite-react";
 import { getApiData } from "../function/api";
-import { useState, useEffect } from "react";
 
 export const TableComponents = ({ refresh }) => {
   const formatDate = (dateString) => {
@@ -14,39 +14,57 @@ export const TableComponents = ({ refresh }) => {
     };
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
-  const [data, setData] = useState([]);
+
+  const [groupedData, setGroupedData] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
         const { data, status } = await getApiData("orders/weighing/today");
         if (status === 200) {
-          setData(data);
+          const grouped = groupByKodeOrder(data);
+          setGroupedData(grouped);
         }
       } catch (error) {
         console.log(error);
       }
     };
-    getData();
+    fetchData();
   }, [refresh]);
+
+  const groupByKodeOrder = (data) => {
+    const grouped = {};
+    data.forEach((item) => {
+      const kodeOrder = item.kode_order;
+      if (!grouped[kodeOrder]) {
+        grouped[kodeOrder] = {
+          tanggal: item.created_at, // Menambahkan tanggal ke objek grup
+          items: [],
+        };
+      }
+      grouped[kodeOrder].items.push(item);
+    });
+    return grouped;
+  };
 
   const columns = [
     {
       header: "Tanggal",
       key: "created_at",
+      align: "center",
+      width: "90px",
       render: (item) => formatDate(item.created_at),
-    },
-    {
-      header: "Kode Order",
-      key: "kode_order",
     },
     {
       header: "Produk",
       key: "name",
+      align: "start",
     },
     {
-      header: "Berat Ditimbang",
+      header: "Berat Timbang",
       key: "details",
+      align: "end",
+      width: "200px",
       render: (item) => {
         const details = JSON.parse(item.details);
         return `${details.qty_weighing} ${details.noa_weighing}`;
@@ -55,6 +73,8 @@ export const TableComponents = ({ refresh }) => {
     {
       header: "Jumlah Ekor",
       key: "details",
+      align: "end",
+      width: "150px",
       render: (item) => {
         const details = JSON.parse(item.details);
         return `${details.number_of_item} ${details.noa_numberofitem}`;
@@ -67,21 +87,32 @@ export const TableComponents = ({ refresh }) => {
       <Table striped>
         <Table.Head>
           {columns.map((column, index) => (
-            <Table.HeadCell key={index}>{column.header}</Table.HeadCell>
+            <Table.HeadCell className="table-cell" key={index}>
+              {column.header}
+            </Table.HeadCell>
           ))}
         </Table.Head>
         <Table.Body className="divide-y divide-x">
-          {data.map((item, rowIndex) => (
-            <Table.Row
-              key={rowIndex}
-              className="bg-white capitalize dark:border-gray-700 dark:bg-gray-800"
-            >
-              {columns.map((column, colIndex) => (
-                <Table.Cell key={colIndex}>
-                  {column.render ? column.render(item) : item[column.key]}
+          {Object.entries(groupedData).map(([kodeOrder, group], index) => (
+            <React.Fragment key={index}>
+              <Table.Row key={index} className="bg-gray-300 font-medium">
+                <Table.Cell className="table-cell" colSpan={columns.length}>
+                  Kode Order: {kodeOrder}
                 </Table.Cell>
+              </Table.Row>
+              {group.items.map((item, rowIndex) => (
+                <Table.Row
+                  key={rowIndex}
+                  className="bg-white capitalize dark:border-gray-700 dark:bg-gray-800"
+                >
+                  {columns.map((column, colIndex) => (
+                    <Table.Cell className="table-cell" key={colIndex}>
+                      {column.render ? column.render(item) : item[column.key]}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
               ))}
-            </Table.Row>
+            </React.Fragment>
           ))}
         </Table.Body>
       </Table>

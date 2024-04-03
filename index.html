@@ -18,6 +18,22 @@
     * {
       font-family: "Roboto", sans-serif;
     }
+    .table-cell {
+      font-size: 0.8rem !important;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+      min-height: 100%;
+      position: relative;
+    }
     .transition-max-height {
       transition: max-height 0.5s ease-in-out;
     }
@@ -33,7 +49,7 @@
       text-transform: uppercase !important;
     }
   </style>
-  <body style="background-color: #f9fafb">
+  <body style="background-color: #f9fafb; height: 100vh">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
