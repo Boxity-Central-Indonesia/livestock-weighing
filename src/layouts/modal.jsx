@@ -13,10 +13,15 @@ export const ModalComponents = ({
 
     const [data, setData] = useState([]);
     const [dataProduct, setDataProduct] = useState([]);
+    const [dataOrderProduct, setDataOrderProduct] = useState([])
+    const [dataQtyKeranjang, setDataQtyKeranjang] = useState(8)
+    const [dataSelisihQty, setDataSelisihQty] = useState(0)
+    const [dataTimbanganBersih, setDataTimbanganBersih] = useState(0)
     const [dataBody, setDataBody] = useState({
         order_id: null,
         product_id: null,
         details: {
+            basket_weight: dataQtyKeranjang,
             vehicle_no: "",
             qty_weighing: "",
             number_of_item: ""
@@ -74,10 +79,21 @@ export const ModalComponents = ({
         } catch (error) {
             console.log(error);
         }
+        try {
+            const {status, data} = await getApiData(`orders/${orderId}`);
+            if(status === 200){
+               setDataOrderProduct(data.products)
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if(name === 'basket_weight'){
+            setDataQtyKeranjang(value)
+        }
         setDataBody(prevDataBody => ({
             ...prevDataBody,
             details: {
@@ -87,7 +103,17 @@ export const ModalComponents = ({
         }));
     };
 
+
+    const handleChangeForProduct = (selectedOption) => {
+        const dataProduct = dataOrderProduct.find(item => item.id === selectedOption.value); // Menggunakan item.value untuk membandingkan dengan selectedOption.value
+        setDataSelisihQty(dataProduct.selisih_quantity)
+        setDataTimbanganBersih(dataProduct.timbang_bersih)
+        setDataBody(prevDataBody => ({...prevDataBody, product_id: selectedOption.value}));
+    }
+    
+
     const handleCreate = async () => {
+        console.log(dataBody);
         try {
             const {data, status} = await postApiData('orders/weighing', dataBody)
             if(status === 201){
@@ -105,7 +131,8 @@ export const ModalComponents = ({
                  <Modal.Header>Timbangan</Modal.Header>
                  <Modal.Body>
                      <div>
-                        <p className="text-4xl font-medium mb-5">{dataBody.details.qty_weighing} kg</p>
+                        <p className="text-4xl font-medium mb-1">{dataBody.details.qty_weighing} kg <span className="text-sm font-normal text-gray-700">Bruto</span></p>
+                        <p className="mb-5 text-gray-700">Selisih timbangan: {dataSelisihQty} kg | netto: {dataTimbanganBersih} kg</p>
                         <div className=" grid grid-cols-2 gap-5">
                             <div className="flex flex-col gap-3 col-span-2">
                                 <label htmlFor="">Kode order</label>
@@ -118,7 +145,13 @@ export const ModalComponents = ({
                             </div>
                             <div className="flex flex-col gap-3">
                                 <label htmlFor="">Produk</label>
-                                <Select onChange={(selectedOption) => setDataBody(prevDataBody => ({...prevDataBody, product_id: selectedOption.value}))} options={dataProduct} />
+                                <Select onChange={(selectedOption) => handleChangeForProduct(selectedOption)} options={dataProduct} />
+                            </div>
+
+
+                            <div className="flex flex-col gap-3">
+                                <label htmlFor="">Jumlah ekor</label>
+                                <input name="number_of_item" onChange={handleChange} placeholder="Jumlah ekor" className="rounded-md h-9"type="text" />
                             </div>
 
                             <div className="flex flex-col gap-3">
@@ -127,10 +160,9 @@ export const ModalComponents = ({
                             </div>
 
                             <div className="flex flex-col gap-3">
-                                <label htmlFor="">Jumlah ekor</label>
-                                <input name="number_of_item" onChange={handleChange} placeholder="Jumlah ekor" className="rounded-md h-9"type="text" />
+                                <label htmlFor="">Qty keranjang</label>
+                                <input name="basket_weight" onChange={handleChange} value={dataQtyKeranjang} placeholder="Qty keranjang" className="rounded-md h-9" type="text" />
                             </div>
-
                         </div>
                      </div>
                  </Modal.Body>
