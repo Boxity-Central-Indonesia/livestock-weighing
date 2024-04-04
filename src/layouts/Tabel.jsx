@@ -53,29 +53,30 @@ export const TableComponents = ({ refresh }) => {
     {
       header: "Tanggal",
       key: "created_at",
-      align: "center",
-      width: "90px",
+      align: "left",
+      width: "300px",
       render: (item) => formatDate(item.created_at),
     },
     {
       header: "Produk",
       key: "name",
+      width: "200px",
       align: "start",
     },
     {
       header: "Berat Timbang",
       key: "details",
-      align: "end",
-      width: "200px",
+      align: "right",
+      width: "230px",
       render: (item) => {
         const details = JSON.parse(item.details);
         return `${details.qty_weighing} ${details.noa_weighing}`;
       },
     },
     {
-      header: "Jumlah Ekor",
+      header: "Jumlah",
       key: "details",
-      align: "end",
+      align: "right",
       width: "150px",
       render: (item) => {
         const details = JSON.parse(item.details);
@@ -97,11 +98,7 @@ export const TableComponents = ({ refresh }) => {
         <Table.Body className="divide-y divide-x">
           {Object.entries(groupedData).map(([kodeOrder, group], index) => (
             <React.Fragment key={index}>
-              <Table.Row
-                key={index}
-                className="bg-gray-300 font-medium"
-                style={{ backgroundColor: "#f3f4f6" }}
-              >
+              <Table.Row key={index} className="bg-gray-300 font-medium">
                 <Table.Cell className="table-cell" colSpan={columns.length}>
                   Kode Order: {kodeOrder}
                 </Table.Cell>
@@ -112,7 +109,12 @@ export const TableComponents = ({ refresh }) => {
                   className="bg-white capitalize dark:border-gray-700 dark:bg-gray-800"
                 >
                   {columns.map((column, colIndex) => (
-                    <Table.Cell className="table-cell" key={colIndex}>
+                    <Table.Cell
+                      className="table-cell"
+                      key={colIndex}
+                      align={column.align}
+                      width={column.width}
+                    >
                       {column.render ? column.render(item) : item[column.key]}
                     </Table.Cell>
                   ))}
