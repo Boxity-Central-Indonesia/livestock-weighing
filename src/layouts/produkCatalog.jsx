@@ -42,7 +42,13 @@ export const ProductCatalog = ({ refresh, setRefresh }) => {
                 className="bg-white cursor-pointer hover:bg-gray-50 border rounded-md p-5 flex flex-col items-center justify-center gap-4"
               >
                 {/* untuk icon */}
-                <div></div>
+                <div>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="imgResponsive"
+                  />
+                </div>
                 {/* untuk icon end */}
                 <div>
                   <p className="text-md font-medium text-center">{item.name}</p>
