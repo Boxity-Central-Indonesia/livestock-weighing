@@ -29,11 +29,10 @@ export const ProductCatalog = ({ refresh, setRefresh }) => {
           refresh={refresh}
           setRefresh={setRefresh}
         />
-        <h3 className="text-md font-medium font-bold mt-4">
+        <h2 className="text-xl font-medium font-bold mt-20">
           Pilih kategori barang yang ingin ditimbang
-        </h3>
-        <hr className="mt-3 mb-2" />
-        <div className="grid grid-cols-4 gap-5">
+        </h2>
+        <div className="grid grid-cols-4 gap-5 mt-5">
           {data &&
             data.map((item, index) => (
               <div
