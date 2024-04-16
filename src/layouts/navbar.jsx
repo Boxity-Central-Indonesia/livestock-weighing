@@ -72,9 +72,9 @@ export const Navbar = () => {
             </button>
             <a href="#" className="flex items-center justify-between mr-4">
               <img
-                src="https://res.cloudinary.com/boxity-id/image/upload/v1713272247/ptDHKManufacturing/logo_cukml3.png"
+                src={import.meta.env.VITE_CLIENT_LOGO_DARK}
                 className="mr-3 h-12"
-                alt="Logo PT DHK Manufacturing"
+                alt={import.meta.env.VITE_CLIENTS_NAME}
               />
             </a>
           </div>
