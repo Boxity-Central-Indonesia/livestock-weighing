@@ -48,7 +48,7 @@ export const ModalComponents = ({
       try {
         const { status, data } = await getApiData("orders");
         if (status === 200) {
-          const newData = data.map((item) => ({
+          const newData = data.filter(item => item.vendor?.transaction_type === 'inbound').map((item) => ({
             value: item.id,
             label: item.kode_order,
           }));
@@ -74,6 +74,7 @@ export const ModalComponents = ({
           value: item.id,
           label: item.name,
         }));
+        console.log(newData);
         setDataProduct(newData);
       }
     } catch (error) {
@@ -104,12 +105,13 @@ export const ModalComponents = ({
   };
 
   const handleChangeForProduct = (selectedOption) => {
+    console.log(dataOrderProduct);
     const dataProduct = dataOrderProduct.find(
       (item) => item.id === selectedOption.value
     ); // Menggunakan item.value untuk membandingkan dengan selectedOption.value
-    setDataSelisihQty(dataProduct.selisih_quantity);
-    setDataJumlahPesanan(dataProduct.quantity_pesanan);
-    setDataTimbanganBersih(dataProduct.timbang_bersih);
+    setDataSelisihQty(dataProduct?.selisih_quantity);
+    setDataJumlahPesanan(dataProduct?.quantity_pesanan);
+    setDataTimbanganBersih(dataProduct?.timbang_bersih);
     setDataBody((prevDataBody) => ({
       ...prevDataBody,
       product_id: selectedOption.value,
@@ -117,7 +119,6 @@ export const ModalComponents = ({
   };
 
   const handleCreate = async () => {
-    console.log(dataBody);
     try {
       const { data, status } = await postApiData("orders/weighing", dataBody);
       if (status === 201) {
