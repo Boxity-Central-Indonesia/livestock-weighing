@@ -184,7 +184,7 @@ export const ModalComponents = ({
               </div>
 
               <div className="flex flex-col gap-3">
-                <label htmlFor="">Qty timbangan</label>
+                <label htmlFor="">Jumlah Kg timbangan</label>
                 <input
                   disabled
                   name="qty_weighing"
@@ -196,13 +196,14 @@ export const ModalComponents = ({
               </div>
 
               <div className="flex flex-col gap-3">
-                <label htmlFor="">Qty keranjang</label>
+                <label htmlFor="">Jumlah kg keranjang</label>
                 <input
                   name="basket_weight"
                   onChange={handleChange}
                   value={dataQtyKeranjang}
                   placeholder="Qty keranjang"
                   className="rounded-md h-9"
+                  readOnly="true"
                   type="text"
                 />
               </div>
