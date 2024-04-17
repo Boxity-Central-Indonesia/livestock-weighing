@@ -52,6 +52,7 @@ export const ModalComponents = ({
             value: item.id,
             label: item.kode_order,
           }));
+          console.log(newData);
           setData(newData);
         }
       } catch (error) {
@@ -74,8 +75,9 @@ export const ModalComponents = ({
           value: item.id,
           label: item.name,
         }));
-        console.log(newData);
         setDataProduct(newData);
+      }else if(status === 404){
+        setDataProduct([]);
       }
     } catch (error) {
       console.log(error);
