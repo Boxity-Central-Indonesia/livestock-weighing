@@ -1,5 +1,6 @@
 import axios from "axios";
 import { displayToast } from "../layouts/displayToast";
+import Cookies from "js-cookie";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const BEARER_TOKEN = import.meta.env.VITE_BEARER_TOKEN;
@@ -10,7 +11,7 @@ export const getApiData = async (endpoint) => {
     const response = await axios.get(`${API_BASE_URL}${endpoint}`, {
       withXSRFToken: true,
       headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${Cookies.get("token")}`,
       },
     });
     return response.data;
@@ -27,7 +28,7 @@ export const postApiData = async (endpoint, data) => {
     const response = await axios.post(`${API_BASE_URL}${endpoint}`, data, {
       withXSRFToken: true,
       headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${Cookies.get("token")}`,
       },
     });
     displayToast({
