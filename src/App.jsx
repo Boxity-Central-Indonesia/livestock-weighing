@@ -4,19 +4,22 @@ import { ProductCatalog } from "./layouts/produkCatalog";
 import { ListProduk } from "./layouts/listProduct";
 import { useState } from "react";
 import Footer from "./layouts/footer";
+import { DisplayCards } from "./layouts/displayCards";
 
 function App() {
+  const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
   return (
     <>
       <Navbar />
+      <DisplayCards data={data} setData={setData}/>
       <div className="pt-5">
         <div className="pt-16 px-5 pb-10">
           {/* untuk produk catalog */}
           <div className="border h-screen p-5 absolute left-0 top-0 w-[60%] overflow-hidden overflow-y-auto">
             <div className=" pb-16">
-              <ProductCatalog refresh={refresh} setRefresh={setRefresh} />
+              <ProductCatalog refresh={refresh} setRefresh={setRefresh} data={data}/>
             </div>
           </div>
           {/* unutuk list data */}

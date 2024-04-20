@@ -2,23 +2,22 @@ import { ModalComponents } from "./modal";
 import { useEffect, useState } from "react";
 import { getApiData } from "../function/api";
 
-export const ProductCatalog = ({ refresh, setRefresh }) => {
+export const ProductCatalog = ({ refresh, setRefresh, data }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { status, data } = await getApiData("product-categories");
-        if (status === 200) {
-          setData(() => data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const { status, data } = await getApiData("product-categories");
+  //       if (status === 200) {
+  //         setData(() => data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
   return (
     <>
