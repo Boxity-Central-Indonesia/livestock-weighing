@@ -13,7 +13,7 @@ export const ModalComponents = ({
   const [data, setData] = useState([]);
   const [dataProduct, setDataProduct] = useState([]);
   const [dataOrderProduct, setDataOrderProduct] = useState([]);
-  const [dataQtyKeranjang, setDataQtyKeranjang] = useState(8);
+  const [dataQtyKeranjang, setDataQtyKeranjang] = useState(6.7);
   const [dataSelisihQty, setDataSelisihQty] = useState(0);
   const [dataJumlahPesanan, setDataJumlahPesanan] = useState(0);
   const [dataTimbanganBersih, setDataTimbanganBersih] = useState(0);
@@ -200,15 +200,10 @@ export const ModalComponents = ({
 
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah kg keranjang</label>
-                <input
-                  name="basket_weight"
-                  onChange={handleChange}
-                  value={dataQtyKeranjang}
-                  placeholder="Qty keranjang"
-                  className="rounded-md h-9"
-                  readOnly="true"
-                  type="text"
-                />
+                <select onChange={handleChange} className="rounded-md" name="basket_weight" id="">
+                  <option value="6.7">6,7 kg</option>
+                  <option value="7.8">7,8 kg</option>
+                </select>
               </div>
             </div>
           </div>
