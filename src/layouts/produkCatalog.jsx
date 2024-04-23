@@ -2,22 +2,8 @@ import { ModalComponents } from "./modal";
 import { useEffect, useState } from "react";
 import { getApiData } from "../function/api";
 
-export const ProductCatalog = ({ refresh, setRefresh, data }) => {
+export const ProductCatalog = ({ refresh, setRefresh, data, setHidden }) => {
   const [openModal, setOpenModal] = useState(false);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const { status, data } = await getApiData("product-categories");
-  //       if (status === 200) {
-  //         setData(() => data);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
 
   return (
     <>
@@ -28,7 +14,10 @@ export const ProductCatalog = ({ refresh, setRefresh, data }) => {
           refresh={refresh}
           setRefresh={setRefresh}
         />
-        <h2 className="text-xl font-medium font-bold mt-20">
+        <button onClick={() => setHidden(false)} className="bg-[#f95b12] px-5 py-2 rounded-md text-white mt-20">
+          Pilih tipe
+        </button>
+        <h2 className="text-xl font-medium font-bold mt-5">
           Pilih kategori barang yang ingin ditimbang
         </h2>
         <div className="grid grid-cols-4 gap-5 mt-5">

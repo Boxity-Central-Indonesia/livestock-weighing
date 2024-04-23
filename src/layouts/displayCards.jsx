@@ -1,11 +1,14 @@
 import { Card } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { getApiData } from "../function/api";
+import { useGlobalState } from "./globalState";
 
-export function DisplayCards({ setData, data }) {
-  const [hidden, setHidden] = useState(false);
+export function DisplayCards({ setData, data, hidden, setHidden }) {
+
+  const {dataType, changeDataType} = useGlobalState()
 
   const handleClickCard = async (param) => {
+    changeDataType(param)
     // disini nanti function untuk get data dari api
     try {
       const { status, data } = await getApiData(
@@ -29,7 +32,7 @@ export function DisplayCards({ setData, data }) {
         ></div>
         <div className="absolute z-50 flex items-center justify-center w-full h-full">
           <div className="flex gap-2">
-            <Card onClick={() => handleClickCard("Ayam")} className="max-w-sm">
+            <Card onClick={() => handleClickCard("Ayam")} className="max-w-sm cursor-pointer">
               <div>
                 <img
                   src="https://res.cloudinary.com/boxity-id/image/upload/v1713273620/ptDHKManufacturing/kategori/ayam_wobgug.png"
@@ -43,7 +46,7 @@ export function DisplayCards({ setData, data }) {
             </Card>
             <Card
               onClick={() => handleClickCard("Karkas")}
-              className="max-w-sm"
+              className="max-w-sm cursor-pointer"
             >
               <div>
                 <img
@@ -61,7 +64,7 @@ export function DisplayCards({ setData, data }) {
             </Card>
             <Card
               onClick={() => handleClickCard("Parting")}
-              className="max-w-sm"
+              className="max-w-sm cursor-pointer"
             >
               <div>
                 <img
@@ -79,7 +82,7 @@ export function DisplayCards({ setData, data }) {
             </Card>
             <Card
               onClick={() => handleClickCard("Sampingan")}
-              className="max-w-sm"
+              className="max-w-sm cursor-pointer"
             >
               <div>
                 <img
