@@ -43,7 +43,7 @@ export const ModalComponents = ({
         // order_id: null,
         product_id: null,
         details: {
-          // type_of_item: "carcass",
+          type_of_item: "carcass",
           basket_weight: dataQtyKeranjang,
           // vehicle_no: "",
           qty_weighing: "",
