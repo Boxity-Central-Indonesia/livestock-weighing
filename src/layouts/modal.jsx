@@ -65,7 +65,44 @@ export const ModalComponents = ({
         }
       }
       getDataKarkas()
-    }else if(dataType === 'Sampingan'){
+    } else if(dataType === 'Parting'){
+      setDataBody({
+        order_id: null,
+        product_id: null,
+        details: {
+          basket_weight: dataQtyKeranjang,
+          vehicle_no: "",
+          qty_weighing: "",
+          number_of_item: "",
+        },
+      })
+      const getDataKarkas = async () => {
+        try {
+          const {data, status} = await getApiData('products?category_name=Karkas')
+          if(status === 200) {
+            const newData = data.map((item) => ({
+              value: item.id,
+              label: item.name,
+            }));
+            setDataProduct(newData);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getDataKarkas()
+    } else if(dataType === 'Sampingan'){
+      setDataBody({
+        // order_id: null,
+        product_id: null,
+        details: {
+          type_of_item: "sampingan",
+          basket_weight: dataQtyKeranjang,
+          // vehicle_no: "",
+          qty_weighing: "",
+          number_of_item: "",
+        },
+      })
       const getDataSampingan = async () => {
         try {
           const {data, status} = await getApiData('products?category_name=Sampingan')
