@@ -218,13 +218,19 @@ export const ModalComponents = ({
 
   const handleCreate = async () => {
     try {
-     if(dataType === 'Ayam'){
+     if(dataType === 'Ayam' || dataType === 'Parting'){
       const { data, status } = await postApiData("orders/weighing", dataBody);
       if (status === 201) {
         setRefresh(!refresh);
         setOpenModal(!openModal);
       }
      } else if(dataType === 'Karkas'){
+      const { data, status } = await postApiData("orders/weighing/exordered", dataBody);
+      if (status === 201) {
+        setRefresh(!refresh);
+        setOpenModal(!openModal);
+      }
+     } else if(dataType === 'Sampingan'){
       const { data, status } = await postApiData("orders/weighing/exordered", dataBody);
       if (status === 201) {
         setRefresh(!refresh);
@@ -320,8 +326,6 @@ export const ModalComponents = ({
                 {dataBody.details.qty_weighing} kg{" "}
               </p>
               <p className="mb-5 mt-2 text-gray-700">
-                <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
-                <b>Selisih timbangan:</b> {dataSelisihQty} kg <br />
               </p>
               <div className=" grid grid-cols-2 gap-5">
                 <div className="flex flex-col gap-3">
@@ -451,8 +455,6 @@ export const ModalComponents = ({
                 {dataBody.details.qty_weighing} kg{" "}
               </p>
               <p className="mb-5 mt-2 text-gray-700">
-                <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
-                <b>Selisih timbangan:</b> {dataSelisihQty} kg <br />
               </p>
               <div className=" grid grid-cols-2 gap-5">
                 <div className="flex flex-col gap-3">
