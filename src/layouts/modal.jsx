@@ -19,16 +19,7 @@ export const ModalComponents = ({
   const [dataJumlahPesanan, setDataJumlahPesanan] = useState(0);
   const [dataTimbanganBersih, setDataTimbanganBersih] = useState(0);
   const {dataType, changeDataType} = useGlobalState()
-  const [dataBody, setDataBody] = useState({
-    order_id: null,
-    product_id: null,
-    details: {
-      basket_weight: dataQtyKeranjang,
-      vehicle_no: "",
-      qty_weighing: "",
-      number_of_item: "",
-    },
-  });
+  const [dataBody, setDataBody] = useState(); 
 
   // Generate random qty_weighing every time openModal changes
   useEffect(() => {
@@ -36,15 +27,29 @@ export const ModalComponents = ({
       return Math.floor(Math.random() * 101).toString();
     };
 
-    setDataBody((prevDataBody) => ({
-      ...prevDataBody,
-      details: {
-        ...prevDataBody.details,
-        qty_weighing: generateRandomQty(),
-      },
-    }));
-
-    if(dataType === 'Karkas'){
+    if(dataType === 'Ayam') {
+      setDataBody({
+        order_id: null,
+        product_id: null,
+        details: {
+          basket_weight: dataQtyKeranjang,
+          vehicle_no: "",
+          qty_weighing: "",
+          number_of_item: "",
+        },
+      })
+    } else if(dataType === 'Karkas'){
+      setDataBody({
+        // order_id: null,
+        product_id: null,
+        details: {
+          // type_of_item: "carcass",
+          basket_weight: dataQtyKeranjang,
+          // vehicle_no: "",
+          qty_weighing: "",
+          number_of_item: "",
+        },
+      })
       const getDataKarkas = async () => {
         try {
           const {data, status} = await getApiData('products?category_name=Karkas')
@@ -77,6 +82,15 @@ export const ModalComponents = ({
       }
       getDataSampingan()
     }
+
+    setDataBody((prevDataBody) => ({
+      ...prevDataBody,
+      details: {
+        ...prevDataBody?.details,
+        qty_weighing: generateRandomQty(),
+      },
+    }));
+
   }, [openModal]);
 
   useEffect(() => {
@@ -167,11 +181,19 @@ export const ModalComponents = ({
 
   const handleCreate = async () => {
     try {
+     if(dataType === 'Ayam'){
       const { data, status } = await postApiData("orders/weighing", dataBody);
       if (status === 201) {
         setRefresh(!refresh);
         setOpenModal(!openModal);
       }
+     } else if(dataType === 'Karkas'){
+      const { data, status } = await postApiData("orders/weighing/exordered", dataBody);
+      if (status === 201) {
+        setRefresh(!refresh);
+        setOpenModal(!openModal);
+      }
+     }
     } catch (error) {
       console.log(error);
     }
@@ -183,7 +205,7 @@ export const ModalComponents = ({
         <>
            <div>
               <p className="text-4xl font-medium mb-1">
-                {dataBody.details.qty_weighing} kg{" "}
+                {dataBody?.details?.qty_weighing} kg{" "}
               </p>
               <p className="mb-5 mt-2 text-gray-700">
                 <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
@@ -235,7 +257,7 @@ export const ModalComponents = ({
                   <input
                     disabled
                     name="qty_weighing"
-                    value={dataBody.details.qty_weighing}
+                    value={dataBody?.details?.qty_weighing}
                     placeholder="Qty timbangan"
                     className="rounded-md h-9"
                     type="text"
