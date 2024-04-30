@@ -4,6 +4,7 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import { getApiData, postApiData } from "../function/api";
 import { useGlobalState } from "./globalState";
+import { timbangan } from "../function/timbangan";
 
 export const ModalComponents = ({
   openModal,
@@ -11,6 +12,7 @@ export const ModalComponents = ({
   refresh,
   setRefresh,
 }) => {
+  const [dataTimbangan, setDataTimbangan] = useState(timbangan())
   const [data, setData] = useState([]);
   const [dataProduct, setDataProduct] = useState([]);
   const [dataOrderProduct, setDataOrderProduct] = useState([]);
@@ -20,21 +22,20 @@ export const ModalComponents = ({
   const [dataTimbanganBersih, setDataTimbanganBersih] = useState(0);
   const { dataType, changeDataType } = useGlobalState();
   const [dataBody, setDataBody] = useState();
+  const [dataJumlahItem, setDataJumlahItem] = useState(dataTimbangan)
 
-  // Generate random qty_weighing every time openModal changes
   useEffect(() => {
-    const generateRandomQty = () => {
-      return Math.floor(Math.random() * 101).toString();
-    };
-
+    setDataTimbangan(timbangan())
+    setDataJumlahItem(dataTimbangan)
     if (dataType === "Ayam") {
       setDataBody({
         order_id: null,
         product_id: null,
         details: {
+          type_of_item: 'Ayam',
           basket_weight: dataQtyKeranjang,
           vehicle_no: "",
-          qty_weighing: "",
+          qty_weighing: dataTimbangan,
           number_of_item: "",
         },
       });
@@ -131,7 +132,8 @@ export const ModalComponents = ({
       ...prevDataBody,
       details: {
         ...prevDataBody?.details,
-        qty_weighing: generateRandomQty(),
+        qty_weighing: dataTimbangan,
+        // number_of_item: dataJumlahItem,
       },
     }));
   }, [openModal]);
@@ -203,6 +205,10 @@ export const ModalComponents = ({
     const { name, value } = e.target;
     if (name === "basket_weight") {
       setDataQtyKeranjang(value);
+      setDataJumlahItem(dataTimbangan)
+    }
+    if(name === 'number_of_item'){
+      setDataJumlahItem(value)
     }
     setDataBody((prevDataBody) => ({
       ...prevDataBody,
