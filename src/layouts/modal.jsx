@@ -33,6 +33,8 @@ export const ModalComponents = ({
         product_id: null,
         details: {
           type_of_item: 'Ayam',
+          qty_ayam_mati: "",
+          qty_ayam_basah: "",
           basket_weight: dataQtyKeranjang,
           vehicle_no: "",
           qty_weighing: dataTimbangan,
@@ -235,11 +237,12 @@ export const ModalComponents = ({
   const handleCreate = async () => {
     try {
       if (dataType === "Ayam" || dataType === "Parting") {
-        const { data, status } = await postApiData("orders/weighing", dataBody);
-        if (status === 201) {
-          setRefresh(!refresh);
-          setOpenModal(!openModal);
-        }
+        console.log(dataBody);
+        // const { data, status } = await postApiData("orders/weighing", dataBody);
+        // if (status === 201) {
+        //   setRefresh(!refresh);
+        //   setOpenModal(!openModal);
+        // }
       } else if (dataType === "Karkas") {
         const { data, status } = await postApiData(
           "orders/weighing/exordered",
@@ -326,6 +329,28 @@ export const ModalComponents = ({
                   placeholder="Qty timbangan"
                   className="rounded-md h-9"
                   type="text"
+                />
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <label htmlFor="">Jumlah ayam mati</label>
+                <input
+                  name="qty_ayam_mati"
+                  onChange={handleChange}
+                  placeholder="Jumlah ayam mati"
+                  className="rounded-md h-9"
+                  type="number"
+                />
+              </div>
+              
+              <div className="flex flex-col gap-3">
+                <label htmlFor="">Jumlah ayam basah</label>
+                <input
+                  name="qty_ayam_basah"
+                  onChange={handleChange}
+                  placeholder="Jumlah ayam basah"
+                  className="rounded-md h-9"
+                  type="number"
                 />
               </div>
 
