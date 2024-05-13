@@ -18,7 +18,7 @@ function App() {
     <>
       <GlobalStateProvider>
       <Spinner loading={loading}/>
-      <Navbar />
+      <Navbar setLoading={setLoading} />
       <DisplayCards data={data} setData={setData} setHidden={setHidden} hidden={hidden} setLoading={setLoading}/>
       <div className="pt-5">
         <div className="pt-16 px-5 pb-10">

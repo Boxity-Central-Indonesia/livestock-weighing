@@ -1,8 +1,7 @@
 import { getApiData } from "../function/api";
 import { useEffect, useState } from "react";
 
-export const Navbar = () => {
-  const [data, setData] = useState([]);
+export const Navbar = ({setLoading}) => {
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -24,6 +23,7 @@ export const Navbar = () => {
             email: profileGet.user.email,
             img: profileGet.photo_profile,
           });
+          setLoading(true)
         }
       } catch (error) {
         console.log(error);
