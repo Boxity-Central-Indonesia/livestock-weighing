@@ -2,7 +2,7 @@
 
 import { TableComponents } from "./Tabel";
 
-export const ListProduk = ({ refresh }) => {
+export const ListProduk = ({ refresh, setLoading }) => {
   return (
     <>
       <div className="p-3">
@@ -11,7 +11,7 @@ export const ListProduk = ({ refresh }) => {
         </h2>
         <hr className="mt-3" />
         <div className="mt-2">
-          <TableComponents refresh={refresh} />
+          <TableComponents refresh={refresh} setLoading={setLoading} />
         </div>
       </div>
     </>

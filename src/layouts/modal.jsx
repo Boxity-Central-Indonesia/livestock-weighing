@@ -237,12 +237,11 @@ export const ModalComponents = ({
   const handleCreate = async () => {
     try {
       if (dataType === "Ayam" || dataType === "Parting") {
-        console.log(dataBody);
-        // const { data, status } = await postApiData("orders/weighing", dataBody);
-        // if (status === 201) {
-        //   setRefresh(!refresh);
-        //   setOpenModal(!openModal);
-        // }
+        const { data, status } = await postApiData("orders/weighing", dataBody);
+        if (status === 201) {
+          setRefresh(!refresh);
+          setOpenModal(!openModal);
+        }
       } else if (dataType === "Karkas") {
         const { data, status } = await postApiData(
           "orders/weighing/exordered",
@@ -273,7 +272,7 @@ export const ModalComponents = ({
         <>
           <div>
             <p className="mb-1 text-4xl font-medium">
-              {dataBody?.details?.qty_weighing} kg{" "}
+              {dataJumlahItem} kg{" "}
             </p>
             <p className="mt-2 mb-5 text-gray-700">
               <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
@@ -375,7 +374,7 @@ export const ModalComponents = ({
         <>
           <div>
             <p className="mb-1 text-4xl font-medium">
-              {dataBody.details.qty_weighing} kg{" "}
+              {dataJumlahItem} kg{" "}
             </p>
             <p className="mt-2 mb-5 text-gray-700"></p>
             <div className="grid grid-cols-2 gap-5 ">
@@ -433,7 +432,7 @@ export const ModalComponents = ({
         <>
           <div>
             <p className="mb-1 text-4xl font-medium">
-              {dataBody.details.qty_weighing} kg{" "}
+              {dataJumlahItem} kg{" "}
             </p>
             <p className="mt-2 mb-5 text-gray-700">
               <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
@@ -513,7 +512,7 @@ export const ModalComponents = ({
         <>
           <div>
             <p className="mb-1 text-4xl font-medium">
-              {dataBody.details.qty_weighing} kg{" "}
+              {dataJumlahItem} kg{" "}
             </p>
             <p className="mt-2 mb-5 text-gray-700"></p>
             <div className="grid grid-cols-2 gap-5 ">

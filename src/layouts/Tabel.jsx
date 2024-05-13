@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "flowbite-react";
 import { getApiData } from "../function/api";
 
-export const TableComponents = ({ refresh }) => {
+export const TableComponents = ({ refresh, setLoading }) => {
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -26,6 +26,7 @@ export const TableComponents = ({ refresh }) => {
         if (status === 200) {
           const grouped = groupByKodeOrder(data);
           setGroupedData(grouped);
+          setLoading(true)
         }
       } catch (error) {
         console.log(error);

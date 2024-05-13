@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { getApiData } from "../function/api";
 import { useGlobalState } from "./globalState";
 
-export function DisplayCards({ setData, data, hidden, setHidden }) {
+export function DisplayCards({ setData, data, hidden, setHidden, setLoading }) {
 
   const {dataType, changeDataType} = useGlobalState()
 
   const handleClickCard = async (param) => {
+    setLoading(false)
     changeDataType(param)
     // disini nanti function untuk get data dari api
     try {
@@ -17,6 +18,7 @@ export function DisplayCards({ setData, data, hidden, setHidden }) {
       if (status === 200) {
         setData(() => data);
         setHidden(true);
+        setLoading(true)
       }
     } catch (error) {
       console.log(error);
