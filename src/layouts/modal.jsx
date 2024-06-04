@@ -209,9 +209,9 @@ export const ModalComponents = ({
       setDataQtyKeranjang(value);
       setDataJumlahItem(dataTimbangan)
     }
-    if(name === 'number_of_item'){
-      setDataJumlahItem(value)
-    }
+    // if(name === 'number_of_item'){
+    //   setDataJumlahItem(value)
+    // }
     setDataBody((prevDataBody) => ({
       ...prevDataBody,
       details: {
