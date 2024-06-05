@@ -1,11 +1,11 @@
 import { ModalComponents } from "./modal";
-import { useEffect, useState } from "react";
-import { getApiData } from "../function/api";
+import { useState } from "react";
 import { useGlobalState } from "./globalState";
+import SerialConnection from "../function/serialConnection";
 
 export const ProductCatalog = ({ refresh, setRefresh, data, setHidden }) => {
   const [openModal, setOpenModal] = useState(false);
-  const {dataType, changeDataType} = useGlobalState()
+  const {dataType} = useGlobalState()
 
   return (
     <>
@@ -16,9 +16,12 @@ export const ProductCatalog = ({ refresh, setRefresh, data, setHidden }) => {
           refresh={refresh}
           setRefresh={setRefresh}
         />
-        <button onClick={() => setHidden(false)} className="bg-[#f95b12] px-5 py-2 rounded-md text-white mt-20">
-          Pilih tipe
-        </button>
+        <div className="flex h-fit items-center mt-20 gap-5">
+          <button onClick={() => setHidden(false)} className="bg-[#f95b12] px-6 py-3 rounded-md text-white">
+            Pilih tipe
+          </button>
+          <SerialConnection/>
+        </div>
         <h1 className="mt-5 mb-3 text-2xl font-semibold">{dataType}</h1>
         <h2 className="text-xl font-medium font-bold">
           Pilih kategori barang yang ingin ditimbang

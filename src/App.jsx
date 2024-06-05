@@ -7,6 +7,7 @@ import Footer from "./layouts/footer";
 import { DisplayCards } from "./layouts/displayCards";
 import { GlobalStateProvider } from "./layouts/globalState";
 import { Spinner } from "./views/components/Spinner";
+import SerialConnection from "./function/serialConnection";
 
 function App() {
   const [data, setData] = useState([]);
