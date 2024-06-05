@@ -322,6 +322,7 @@ export const ModalComponents = ({
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah Kg timbangan</label>
                 <input
+                  disabled
                   name="qty_weighing"
                   value={dataBody?.details?.qty_weighing}
                   placeholder="Qty timbangan"
@@ -402,6 +403,7 @@ export const ModalComponents = ({
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah Kg timbangan</label>
                 <input
+                  disabled
                   name="qty_weighing"
                   value={dataBody.details.qty_weighing}
                   placeholder="Qty timbangan"
@@ -482,6 +484,7 @@ export const ModalComponents = ({
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah Kg timbangan</label>
                 <input
+                  disabled
                   name="qty_weighing"
                   value={dataBody.details.qty_weighing}
                   placeholder="Qty timbangan"
@@ -540,6 +543,7 @@ export const ModalComponents = ({
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah Kg timbangan</label>
                 <input
+                  disabled
                   name="qty_weighing"
                   value={dataBody.details.qty_weighing}
                   placeholder="Qty timbangan"

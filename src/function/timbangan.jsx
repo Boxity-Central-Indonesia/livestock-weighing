@@ -1,3 +1,3 @@
 export const timbangan = () => {
-    return Math.floor(Math.random() * 101).toString();
+    return (Math.random() * 101).toFixed(2);
 }
