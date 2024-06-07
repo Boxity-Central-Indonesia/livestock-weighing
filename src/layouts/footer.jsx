@@ -1,27 +1,6 @@
 // footer.jsx
 
-import React, { useState, useEffect } from "react";
-import { getApiData } from "../function/api";
-
 const Footer = () => {
-  // State to store the company name
-  // const [companyName, setCompanyName] = useState("");
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const { data, status } = await getApiData("companies");
-  //       if (status === 200) {
-  //         // Assuming the first item in data array is the user profile
-  //         const companiesConnected = data[0];
-  //         setCompanyName(companiesConnected.name);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getData();
-  // }, []); // The empty array means this effect runs once when the component mounts
   const authorReserved = import.meta.env.VITE_AUTHOR_RESERVED;
   const authorLINK = import.meta.env.VITE_AUTHOR_LINK;
   const clientsNAME = import.meta.env.VITE_CLIENTS_NAME;

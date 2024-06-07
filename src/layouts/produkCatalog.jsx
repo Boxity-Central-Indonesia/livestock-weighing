@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useGlobalState } from "./globalState";
 import SerialConnection from "../function/serialConnection";
 
-export const ProductCatalog = ({ refresh, setRefresh, data, setHidden }) => {
+export const ProductCatalog = ({ refresh, setRefresh, data, setHidden, setHiddenFooter }) => {
   const [openModal, setOpenModal] = useState(false);
   const {dataType} = useGlobalState()
 
@@ -20,7 +20,7 @@ export const ProductCatalog = ({ refresh, setRefresh, data, setHidden }) => {
           <button onClick={() => setHidden(false)} className="bg-[#f95b12] px-6 py-3 rounded-md text-white">
             Pilih tipe
           </button>
-          <SerialConnection/>
+          <SerialConnection setHiddenFooter={setHiddenFooter}/>
         </div>
         <h1 className="mt-5 mb-3 text-2xl font-semibold">{dataType}</h1>
         <h2 className="text-xl font-medium font-bold">

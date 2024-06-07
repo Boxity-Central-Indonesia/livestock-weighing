@@ -7,13 +7,13 @@ import Footer from "./layouts/footer";
 import { DisplayCards } from "./layouts/displayCards";
 import { GlobalStateProvider } from "./layouts/globalState";
 import { Spinner } from "./views/components/Spinner";
-import SerialConnection from "./function/serialConnection";
 
 function App() {
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [hiddenFooter, setHiddenFooter] = useState(false)
 
   return (
     <>
@@ -26,7 +26,7 @@ function App() {
           {/* untuk produk catalog */}
           <div className="border h-screen p-5 absolute left-0 top-0 w-[60%] overflow-hidden overflow-y-auto">
             <div className=" pb-16">
-              <ProductCatalog refresh={refresh} setRefresh={setRefresh} data={data} setHidden={setHidden}/>
+              <ProductCatalog refresh={refresh} setRefresh={setRefresh} data={data} setHidden={setHidden} setHiddenFooter={setHiddenFooter}/>
             </div>
           </div>
           {/* unutuk list data */}
@@ -36,7 +36,9 @@ function App() {
             </div>
           </div>
         </div>
+        <div className={`${hiddenFooter ? `hidden` : ``}`}>
         <Footer />
+        </div>
       </div>
       </GlobalStateProvider>
     </>
