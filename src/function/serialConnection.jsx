@@ -83,17 +83,20 @@ const SerialConnection = ({ setHiddenFooter }) => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, disconnect it!"
         }).then(async (result) => {
+            setHiddenFooter(false);
             if (result.isConfirmed) {
+                setHiddenFooter(false);
                 if (port) {
+                    setHiddenFooter(false);
                     try {
                         await port.close();
                         setPort(null);
+                        setHiddenFooter(false);
                         Swal.fire({
                             title: "Disconnected!",
                             text: "The serial port has been disconnected.",
                             icon: "success"
                         });
-                        setHiddenFooter(false);
                     } catch (err) {
                         Swal.fire({
                             title: "Error!",
@@ -120,8 +123,8 @@ const SerialConnection = ({ setHiddenFooter }) => {
     return (
         <div className=''>
             <p className='text-sm mb-1'>Koneksi kan ke serial port</p>
-            <button onClick={requestPort} disabled={port} className={`bg-gray-200 py-2 px-4 rounded-md text-xs ${port ? `bg-[#3CCF4E] text-white` : ``}`}>{port ? 'Terhubung': 'Buka Koneksi'}</button>
-            <button onClick={disconnect} className='border border-[#e02424] text-[#e02424] py-2 px-4 rounded-md ml-4 text-xs'>Putuskan</button>
+            <button onClick={requestPort} disabled={port} className={`py-2 px-4 rounded-md text-xs ${port ? `bg-[#3CCF4E] text-white` : `bg-gray-200`}`}>{port ? 'Terhubung': 'Buka Koneksi'}</button>
+            <button onClick={disconnect} className={`border border-[#e02424] ${port ? `` : `hidden`} text-[#e02424] py-2 px-4 rounded-md ml-4 text-xs`}>Putuskan</button>
             {error && <p className='text-sm mt-0.5' style={{color: 'red'}}>{error}</p>}
         </div>
     );
