@@ -54,10 +54,17 @@ const SerialConnection = ({ setHiddenFooter }) => {
                 try {
                     while (true) {
                         const { value, done } = await reader.read();
+                        console.log(value);
+                        console.log('====================================');
+                        console.log('okeeee, ini log read data sebelum break');
+                        console.log('====================================');
                         if (done) {
                             break;
                         }
                         console.log(value);  // Log data
+                        console.log('====================================');
+                        console.log('okeeee, ini log read data setelah break');
+                        console.log('====================================');
                         setOutput(prevOutput => prevOutput + value);
                     }
                 } catch (err) {
