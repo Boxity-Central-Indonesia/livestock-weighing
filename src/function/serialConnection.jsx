@@ -25,39 +25,6 @@ const SerialConnection = ({ setHiddenFooter }) => {
         getPorts();
     }, []);
 
-    const readData = async () => {
-        if (!port) {
-            console.error('Tidak ada port yang tersedia');
-            return;
-        }
-
-        if (!port.readable) {
-            console.error('Port tidak dapat dibaca');
-            setError('Port tidak dapat dibaca');
-            return;
-        }
-
-        const textDecoder = new TextDecoderStream();
-        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-        const reader = textDecoder.readable.getReader();
-
-        try {
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) {
-                    break;
-                }
-                console.log(value);  // Log data
-                setOutput(prevOutput => prevOutput + value);
-            }
-        } catch (err) {
-            console.error('Error membaca data:', err);
-            setError('Error membaca data: ' + err.message);
-        } finally {
-            reader.releaseLock();
-        }
-    };
-
     const requestPort = async () => {
         try {
             const newPort = await navigator.serial.requestPort();
@@ -65,23 +32,25 @@ const SerialConnection = ({ setHiddenFooter }) => {
             console.log('Port berhasil dibuka:', newPort);
             setPort(newPort);
             setError('');
+
             // Tunggu sebentar sebelum membaca
-            setTimeout(() => {
+            setTimeout(async () => {
                 if (!newPort) {
                     console.error('Tidak ada port yang tersedia');
+                    setError('Tidak ada port yang tersedia');
                     return;
                 }
-        
+
                 if (!newPort.readable) {
                     console.error('Port tidak dapat dibaca');
                     setError('Port tidak dapat dibaca');
                     return;
                 }
-        
+
                 const textDecoder = new TextDecoderStream();
-                const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+                const readableStreamClosed = newPort.readable.pipeTo(textDecoder.writable);
                 const reader = textDecoder.readable.getReader();
-        
+
                 try {
                     while (true) {
                         const { value, done } = await reader.read();
@@ -97,26 +66,6 @@ const SerialConnection = ({ setHiddenFooter }) => {
                 } finally {
                     reader.releaseLock();
                 }
-            }, 100); // Tunggu 100ms
-        } catch (err) {
-            setError('Gagal terhubung: ' + err.message);
-            console.error('Gagal terhubung: ', err);
-        }
-    };
-
-    const connect = async () => {
-        if (!selectedPort) {
-            setError('Tidak ada port yang dipilih');
-            return;
-        }
-        try {
-            await selectedPort.port.open({ baudRate: 9600 });
-            console.log('Port berhasil dibuka:', selectedPort.port);
-            setPort(selectedPort.port);
-            setError('');
-            // Tunggu sebentar sebelum membaca
-            setTimeout(() => {
-                readData();  // Mulai membaca data setelah port dibuka
             }, 100); // Tunggu 100ms
         } catch (err) {
             setError('Gagal terhubung: ' + err.message);
