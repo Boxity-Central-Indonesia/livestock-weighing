@@ -26,7 +26,7 @@ const SerialConnection = ({ setHiddenFooter }) => {
     }, []);
 
   const readData = async () => {
-    if (!port) return;
+    // if (!port) return;
 
     const textDecoder = new TextDecoderStream();
     const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
