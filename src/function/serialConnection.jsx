@@ -26,29 +26,29 @@ const SerialConnection = ({ setHiddenFooter }) => {
     }, []);
 
     const readData = async () => {
-        if (!port) {
-            console.error('No port available');
-            return;
-        }
+        // if (!port) {
+        //     console.error('No port available');
+        //     return;
+        // }
     
-        const textDecoder = new TextDecoderStream();
-        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-        const reader = textDecoder.readable.getReader();
+        // const textDecoder = new TextDecoderStream();
+        // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+        // const reader = textDecoder.readable.getReader();
         
-        try {
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) {
-                    break;
-                }
-                console.log(value);  // Log the data
-                setOutput(prevOutput => prevOutput + value);
-            }
-        } catch (err) {
-            console.error('Error reading data:', err);
-        } finally {
-            reader.releaseLock();
-        }
+        // try {
+        //     while (true) {
+        //         const { value, done } = await reader.read();
+        //         if (done) {
+        //             break;
+        //         }
+        //         console.log(value);  // Log the data
+        //         setOutput(prevOutput => prevOutput + value);
+        //     }
+        // } catch (err) {
+        //     console.error('Error reading data:', err);
+        // } finally {
+        //     reader.releaseLock();
+        // }
     };
     
 
@@ -58,7 +58,29 @@ const SerialConnection = ({ setHiddenFooter }) => {
             await newPort.open({ baudRate: 9600 });
             setPort(newPort);
             setError('');
-            readData();  // Start reading data after the port is opened
+
+            if (!newPort) {
+                console.error('No port available');
+                return;
+            }
+            const textDecoder = new TextDecoderStream();
+            const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+            const reader = textDecoder.readable.getReader();
+            
+            try {
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) {
+                        break;
+                    }
+                    console.log(value);  // Log the data
+                    setOutput(prevOutput => prevOutput + value);
+                }
+            } catch (err) {
+                console.error('Error reading data:', err);
+            } finally {
+                reader.releaseLock();
+            }
         } catch (err) {
             setError('Failed to connect: ' + err.message);
         }
@@ -70,7 +92,7 @@ const SerialConnection = ({ setHiddenFooter }) => {
             await selectedPort.port.open({ baudRate: 9600 });
             setPort(selectedPort.port);
             setError('');
-            readData();  // Start reading data after the port is opened
+            // readData();  // Start reading data after the port is opened
         } catch (err) {
             setError('Failed to connect: ' + err.message);
         }
