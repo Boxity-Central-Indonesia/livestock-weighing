@@ -25,13 +25,16 @@ const SerialConnection = ({ setHiddenFooter }) => {
         getPorts();
     }, []);
 
-  const readData = async () => {
-    // if (!port) return;
-
-    const textDecoder = new TextDecoderStream();
-    const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-    const reader = textDecoder.readable.getReader();
-
+    const readData = async () => {
+        if (!port) {
+            console.error('No port available');
+            return;
+        }
+    
+        const textDecoder = new TextDecoderStream();
+        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+        const reader = textDecoder.readable.getReader();
+        
         try {
             while (true) {
                 const { value, done } = await reader.read();
@@ -47,6 +50,7 @@ const SerialConnection = ({ setHiddenFooter }) => {
             reader.releaseLock();
         }
     };
+    
 
     const requestPort = async () => {
         try {
