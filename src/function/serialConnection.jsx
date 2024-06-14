@@ -67,7 +67,36 @@ const SerialConnection = ({ setHiddenFooter }) => {
             setError('');
             // Tunggu sebentar sebelum membaca
             setTimeout(() => {
-                readData();  // Mulai membaca data setelah port dibuka
+                if (!newPort) {
+                    console.error('Tidak ada port yang tersedia');
+                    return;
+                }
+        
+                if (!newPort.readable) {
+                    console.error('Port tidak dapat dibaca');
+                    setError('Port tidak dapat dibaca');
+                    return;
+                }
+        
+                const textDecoder = new TextDecoderStream();
+                const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+                const reader = textDecoder.readable.getReader();
+        
+                try {
+                    while (true) {
+                        const { value, done } = await reader.read();
+                        if (done) {
+                            break;
+                        }
+                        console.log(value);  // Log data
+                        setOutput(prevOutput => prevOutput + value);
+                    }
+                } catch (err) {
+                    console.error('Error membaca data:', err);
+                    setError('Error membaca data: ' + err.message);
+                } finally {
+                    reader.releaseLock();
+                }
             }, 100); // Tunggu 100ms
         } catch (err) {
             setError('Gagal terhubung: ' + err.message);
