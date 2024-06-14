@@ -72,6 +72,9 @@ const SerialConnection = ({ setHiddenFooter }) => {
                     setError('Error membaca data: ' + err.message);
                 } finally {
                     reader.releaseLock();
+                    console.log('====================================');
+                    console.log('ini log vinaly');
+                    console.log('====================================');
                 }
             }, 100); // Tunggu 100ms
         } catch (err) {
