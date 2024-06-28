@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { getApiData, postApiData } from "../function/api";
 import { useGlobalState } from "./globalState";
 import { timbangan } from "../function/timbangan";
-import { timbangan2 } from "../function/timbangan2";
 
 export const ModalComponents = ({
   openModal,
@@ -24,7 +23,7 @@ export const ModalComponents = ({
   const [dataBody, setDataBody] = useState();
 
 
-  const dataTimbangan = timbangan2()
+  const dataTimbangan = timbangan()
 
 
   useEffect(() => {
