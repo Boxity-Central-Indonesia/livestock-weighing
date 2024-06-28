@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getApiData, postApiData } from "../function/api";
 import { useGlobalState } from "./globalState";
 import { timbangan } from "../function/timbangan";
+import { timbangan2 } from "../function/timbangan2";
 
 export const ModalComponents = ({
   openModal,
@@ -12,7 +13,6 @@ export const ModalComponents = ({
   refresh,
   setRefresh,
 }) => {
-  const [dataTimbangan, setDataTimbangan] = useState(timbangan())
   const [data, setData] = useState([]);
   const [dataProduct, setDataProduct] = useState([]);
   const [dataOrderProduct, setDataOrderProduct] = useState([]);
@@ -22,17 +22,18 @@ export const ModalComponents = ({
   const [dataTimbanganBersih, setDataTimbanganBersih] = useState(0);
   const { dataType, changeDataType } = useGlobalState();
   const [dataBody, setDataBody] = useState();
-  const [dataJumlahItem, setDataJumlahItem] = useState(dataTimbangan)
+
+
+  const dataTimbangan = timbangan2()
+
 
   useEffect(() => {
-    setDataTimbangan(timbangan())
-    setDataJumlahItem(dataTimbangan)
     if (dataType === "Ayam") {
       setDataBody({
         order_id: null,
         product_id: null,
         details: {
-          type_of_item: 'Ayam',
+          type_of_item: "Ayam",
           qty_ayam_mati: "",
           qty_ayam_basah: "",
           basket_weight: dataQtyKeranjang,
@@ -135,10 +136,10 @@ export const ModalComponents = ({
       details: {
         ...prevDataBody?.details,
         qty_weighing: dataTimbangan,
-        // number_of_item: dataJumlahItem,
+        // number_of_item: dataTimbangan,
       },
     }));
-  }, [openModal]);
+  }, [openModal, dataTimbangan]);
 
   useEffect(() => {
     const getData = async () => {
@@ -207,10 +208,10 @@ export const ModalComponents = ({
     const { name, value } = e.target;
     if (name === "basket_weight") {
       setDataQtyKeranjang(value);
-      setDataJumlahItem(dataTimbangan)
+      setdataTimbangan(dataTimbangan);
     }
     // if(name === 'number_of_item'){
-    //   setDataJumlahItem(value)
+    //   setdataTimbangan(value)
     // }
     setDataBody((prevDataBody) => ({
       ...prevDataBody,
@@ -271,9 +272,7 @@ export const ModalComponents = ({
       return (
         <>
           <div>
-            <p className="mb-1 text-4xl font-medium">
-              {dataJumlahItem} kg{" "}
-            </p>
+            <p className="mb-1 text-4xl font-medium">{dataTimbangan} kg </p>
             <p className="mt-2 mb-5 text-gray-700">
               <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
               <b>Selisih timbangan:</b> {dataSelisihQty} kg <br />
@@ -342,7 +341,7 @@ export const ModalComponents = ({
                   type="number"
                 />
               </div>
-              
+
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Jumlah ayam basah</label>
                 <input
@@ -374,9 +373,7 @@ export const ModalComponents = ({
       return (
         <>
           <div>
-            <p className="mb-1 text-4xl font-medium">
-              {dataJumlahItem} kg{" "}
-            </p>
+            <p className="mb-1 text-4xl font-medium">{dataTimbangan} kg </p>
             <p className="mt-2 mb-5 text-gray-700"></p>
             <div className="grid grid-cols-2 gap-5 ">
               <div className="flex flex-col gap-3">
@@ -433,9 +430,7 @@ export const ModalComponents = ({
       return (
         <>
           <div>
-            <p className="mb-1 text-4xl font-medium">
-              {dataJumlahItem} kg{" "}
-            </p>
+            <p className="mb-1 text-4xl font-medium">{dataTimbangan} kg </p>
             <p className="mt-2 mb-5 text-gray-700">
               <b>Jumlah Pesanan:</b> {dataJumlahPesanan} kg <br />
               <b>Selisih timbangan:</b> {dataSelisihQty} kg <br />
@@ -514,9 +509,7 @@ export const ModalComponents = ({
       return (
         <>
           <div>
-            <p className="mb-1 text-4xl font-medium">
-              {dataJumlahItem} kg{" "}
-            </p>
+            <p className="mb-1 text-4xl font-medium">{dataTimbangan} kg </p>
             <p className="mt-2 mb-5 text-gray-700"></p>
             <div className="grid grid-cols-2 gap-5 ">
               <div className="flex flex-col gap-3">

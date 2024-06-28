@@ -15,6 +15,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [hiddenFooter, setHiddenFooter] = useState(false)
 
+
   return (
     <>
       <GlobalStateProvider>
